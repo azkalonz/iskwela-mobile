@@ -1,6 +1,14 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Iskwela",
-	"webDir": "build",
-	"bundledWebRuntime": false
+  "appId": "net.iskwela.portal",
+  "appName": "Iskwela",
+  "webDir": "build",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1000,
+      "launchAutoHide": true,
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
 }
