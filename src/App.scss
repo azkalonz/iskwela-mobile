@@ -1,3 +1,7 @@
+.ion-page {
+  overflow-y: auto;
+}
+
 ion-item {
   --ion-item-background: transparent;
   --ion-font-family: "Work Sans";
@@ -14,13 +18,14 @@ ion-item {
     border-radius: 6px;
     input {
       padding: 13px !important;
+      min-height: 56px;
     }
   }
   ion-label {
     z-index: 3;
     padding: 0 13px;
     font-weight: 500;
-    transform: translate(0, 30px) !important;
+    transform: translate(0, 37px) !important;
   }
   &.item-has-focus,
   &.item-has-value {
@@ -35,7 +40,8 @@ ion-item {
 
 ion-button {
   width: 100%;
-  font-family: "Work Sans";
+  font-family: "Work Sans" !important;
+  min-height: 56px;
   margin-top: 18px;
   &.ion-color-secondary {
     --ion-color-contrast: #282b4d !important;

@@ -13,25 +13,17 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/typography.css";
-import { Redirect, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { Route } from "react-router-dom";
+import "./App.scss";
 import Login from "./pages/Login";
 /* Theme variables */
 import "./theme/variables.css";
-
-import "./App.scss";
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/login">
           <Login />
         </Route>
       </IonRouterOutlet>
