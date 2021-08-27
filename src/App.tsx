@@ -19,6 +19,8 @@ import Login from "./pages/Login";
 /* Theme variables */
 import "./theme/variables.css";
 
+import "./App.scss";
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
