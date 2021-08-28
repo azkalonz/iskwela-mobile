@@ -1,9 +1,17 @@
 #login {
   background: radial-gradient(circle at 70% 30%, #7539ff, #23114d);
   align-items: center;
-  justify-content: flex-start;
   padding: 0 25px;
   padding-top: 95px;
+  height: 100%;
+}
+.login-wrapper {
+  display: flex;
+  max-width: 400px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 h1 {
   font-size: 28px;

@@ -15,6 +15,8 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/typography.css";
 import { Route } from "react-router-dom";
 import "./App.scss";
+import Header from "./components/Header";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 /* Theme variables */
 import "./theme/variables.css";
@@ -23,9 +25,8 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/">
-          <Login />
-        </Route>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/dashboard" component={Home} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

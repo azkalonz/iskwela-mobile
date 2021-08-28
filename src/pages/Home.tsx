@@ -2,38 +2,43 @@ import {
   IonButton,
   IonContent,
   IonHeader,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonAlert,
 } from "@ionic/react";
+import { searchOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
-import ExploreContainer from "../components/ExploreContainer";
+import Header from "../components/Header";
 import "./Home.css";
 
 const Home: React.FC = () => {
   const history = useHistory();
+  const [present] = useIonAlert();
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Home</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Home</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonButton
-          onClick={() => {
-            history.push("login");
-          }}
-        >
-          Login
-        </IonButton>
-      </IonContent>
+      <div className="ion-page" id="main-content">
+        <Header />
+        <IonContent fullscreen>
+          <IonItem className="iskwela-theme">
+            <IonInput clearOnEdit={false} placeholder="Search">
+              <IonButton
+                slot="end"
+                onClick={() => {
+                  present("Search");
+                }}
+              >
+                <IonIcon icon={searchOutline} />
+              </IonButton>
+            </IonInput>
+          </IonItem>
+        </IonContent>
+      </div>
     </IonPage>
   );
 };

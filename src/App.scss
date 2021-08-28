@@ -2,7 +2,7 @@
   overflow-y: auto;
 }
 
-ion-item {
+ion-item.iskwela-theme {
   --ion-item-background: transparent;
   --ion-font-family: "Work Sans";
   --inner-border-width: 0 !important;
@@ -13,9 +13,19 @@ ion-item {
   overflow: visible;
   margin-top: 18px;
   width: 100%;
+  ion-button {
+    --background: transparent;
+    --box-shadow: none;
+    order: 2;
+    z-index: 2;
+    ion-icon {
+      color: #7539ff;
+    }
+  }
   ion-input {
     background-color: #eee6ff !important;
     border-radius: 6px;
+    z-index: 1;
     input {
       padding: 13px !important;
       min-height: 56px;
@@ -38,7 +48,7 @@ ion-item {
   }
 }
 
-ion-button {
+ion-button.full {
   width: 100%;
   font-family: "Work Sans" !important;
   min-height: 56px;
@@ -51,4 +61,17 @@ ion-button {
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
   }
+}
+
+ion-header {
+  ion-title {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 700;
+  }
+}
+
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 14px;
 }
