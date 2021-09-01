@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                       icon: logOutOutline,
                       text: "Logout",
                       handler: () => {
-                        history.replace("/");
+                        history.replace("/login");
                       },
                     },
                   ],

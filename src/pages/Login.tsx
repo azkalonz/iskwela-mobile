@@ -26,7 +26,7 @@ const Login: React.FC = () => {
           color="secondary"
           class="full"
           onClick={() => {
-            history.push("/dashboard");
+            history.push("/");
           }}
         >
           Sign In

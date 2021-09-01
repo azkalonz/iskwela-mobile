@@ -83,70 +83,59 @@ ion-content {
   --padding-end: 14px;
 }
 
-ion-card.classes {
-  max-height: 226px;
-  border-radius: 20px;
-  border: 1px solid #e9e4ef;
-  box-shadow: 0 2px 30px #f1e6ff;
-  height: 100%;
-  transition: box-shadow 0.13s ease-out, transform 0.13s ease-out;
-  margin-top: 30px;
-  &:active {
-    box-shadow: 0 10px 10px #efe6fb;
-    transform: translateY(-6px);
+ion-button.ion-color-transparent {
+  --box-shadow: none;
+  ion-icon {
+    color: #7539ff;
   }
-  ion-card-title {
-    color: #fff;
-    font-size: 24px;
-    letter-spacing: 0.33px;
-    font-weight: 500;
-  }
-  ion-card-subtitle {
-    color: #fff;
-    font-size: 16px;
-    letter-spacing: 0.22px;
-    font-weight: 400;
-  }
-  ion-card-header {
-    height: 155px;
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: cover;
-  }
-  ion-card-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 71px;
-    ion-avatar {
-      position: absolute;
-      right: 17px;
-      bottom: 35px;
-      width: 75px;
-      height: 75px;
-    }
-    .class-details,
-    .class-teacher {
-      margin-top: 10px;
-      color: #282b4d;
-      width: 50%;
-    }
-    .class-details {
-      ion-text {
-        font-size: 14px;
-        letter-spacing: 0.19px;
-      }
-    }
-    .class-teacher {
-      display: flex;
-      align-items: flex-end;
-      height: 100%;
-      justify-content: flex-end;
-      ion-text {
-        font-size: 16px;
-        font-weight: 700;
-        letter-spacing: 0.22px;
-      }
-    }
-  }
+}
+
+// iSkwela icons
+.icon-explore:before {
+  content: "\e90f";
+}
+.icon-activities:before {
+  content: "\e900";
+}
+.icon-attendance:before {
+  content: "\e901";
+}
+.icon-classes:before {
+  content: "\e902";
+}
+.icon-feeds:before {
+  content: "\e903";
+}
+.icon-instructional-materials:before {
+  content: "\e904";
+}
+.icon-lesson-plan:before {
+  content: "\e905";
+}
+.icon-menu-close:before {
+  content: "\e906";
+}
+.icon-menu-open:before {
+  content: "\e907";
+}
+.icon-publish:before {
+  content: "\e908";
+}
+.icon-quiz:before {
+  content: "\e909";
+}
+.icon-schedule:before {
+  content: "\e90a";
+}
+.icon-start-conference:before {
+  content: "\e90b";
+}
+.icon-stop-conference:before {
+  content: "\e90c";
+}
+.icon-students:before {
+  content: "\e90d";
+}
+.icon-unpublish:before {
+  content: "\e90e";
 }

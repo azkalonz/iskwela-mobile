@@ -11,29 +11,29 @@ import { searchOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import Header from "../components/Header";
-import "./Home.css";
+import "./Home.scss";
 
 const Home: React.FC = () => {
   const history = useHistory();
   const [present] = useIonAlert();
 
   return (
-    <IonPage>
-      <div className="ion-page" id="main-content">
-        <Header />
-        <IonContent fullscreen>
-          <IonItem className="iskwela-theme">
-            <IonInput clearOnEdit={false} placeholder="Search">
-              <IonButton
-                slot="end"
-                onClick={() => {
-                  present("Search");
-                }}
-              >
-                <IonIcon icon={searchOutline} />
-              </IonButton>
-            </IonInput>
-          </IonItem>
+    <IonPage id="main-content">
+      <Header />
+      <IonContent fullscreen>
+        <IonItem className="iskwela-theme">
+          <IonInput clearOnEdit={false} placeholder="Search">
+            <IonButton
+              slot="end"
+              onClick={() => {
+                present("Search");
+              }}
+            >
+              <IonIcon icon={searchOutline} />
+            </IonButton>
+          </IonInput>
+        </IonItem>
+        <div id="classes">
           <ClassCard
             title="English 101"
             description="Fundamentals"
@@ -44,8 +44,8 @@ const Home: React.FC = () => {
             timeEnd="10:00 AM"
             date="2 September 2021"
           />
-        </IonContent>
-      </div>
+        </div>
+      </IonContent>
     </IonPage>
   );
 };

@@ -31,7 +31,7 @@ const ClassCard: React.FC<ClassDetails> = ({
   teacherName,
 }) => {
   return (
-    <IonCard className="classes">
+    <IonCard className="class">
       <IonCardHeader
         style={{
           backgroundImage: `url("${coverImg}")`,
