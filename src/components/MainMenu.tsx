@@ -10,16 +10,39 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
-import React, { useRef } from "react";
-import { useHistory } from "react-router";
+import React, { useEffect, useRef } from "react";
+import { useHistory, useLocation } from "react-router";
 import "./MainMenu.scss";
+
+export function changeHeaderTitle(title: string): void {
+  document.querySelector<HTMLInputElement>(
+    "#main-header ion-title"
+  )!.innerText = title;
+}
 
 const MainMenu: React.FC = () => {
   const history = useHistory();
   const menuRef = useRef(document.createElement("ion-menu"));
+  const location = useLocation();
+
+  useEffect(() => {
+    const headerTitle =
+      {
+        "/": "Classes",
+        "/class": "English 101",
+        "/class/": "English 101",
+      }[location.pathname] || "";
+    menuRef.current.close();
+    changeHeaderTitle(headerTitle);
+  }, [location]);
 
   return (
-    <IonMenu side="start" menuId="first" contentId="main-content" ref={menuRef}>
+    <IonMenu
+      side="start"
+      menuId="first"
+      contentId="router-outlet"
+      ref={menuRef}
+    >
       <IonHeader className="no-shadow">
         <IonToolbar>
           <img
@@ -42,7 +65,10 @@ const MainMenu: React.FC = () => {
       <IonContent>
         <IonList lines="none">
           <IonItem
-            className={history.location.pathname === "/" ? "selected" : ""}
+            className={location.pathname === "/" ? "selected" : ""}
+            onClick={() => {
+              history.replace("/");
+            }}
           >
             <div className="icon">
               <div className="icon-classes" slot="start" />

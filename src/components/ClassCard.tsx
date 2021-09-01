@@ -8,6 +8,7 @@ import {
   IonText,
 } from "@ionic/react";
 import React from "react";
+import { useHistory } from "react-router";
 
 interface ClassDetails {
   title: String;
@@ -30,8 +31,15 @@ const ClassCard: React.FC<ClassDetails> = ({
   teacherImg,
   teacherName,
 }) => {
+  const history = useHistory();
+
   return (
-    <IonCard className="class">
+    <IonCard
+      className="class"
+      onClick={() => {
+        history.push("/class");
+      }}
+    >
       <IonCardHeader
         style={{
           backgroundImage: `url("${coverImg}")`,

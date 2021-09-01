@@ -1,5 +1,14 @@
 .ion-page {
   overflow-y: auto;
+  pointer-events: visible !important;
+  &.has-header {
+    &.ios {
+      margin-top: 44px;
+    }
+    &.md {
+      margin-top: 56px;
+    }
+  }
 }
 
 // Style for IonicInput

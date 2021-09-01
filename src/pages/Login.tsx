@@ -26,7 +26,7 @@ const Login: React.FC = () => {
           color="secondary"
           class="full"
           onClick={() => {
-            history.push("/");
+            history.replace("/");
           }}
         >
           Sign In

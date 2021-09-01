@@ -16,20 +16,25 @@ import "@ionic/react/css/typography.css";
 import { Route } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header";
+import Class from "./pages/Class";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 /* Theme variables */
 import "./theme/variables.css";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <Header />
+        <IonRouterOutlet id="router-outlet">
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/class/:id?" component={Class} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

@@ -8,20 +8,77 @@ import {
   IonTitle,
   IonToolbar,
   useIonActionSheet,
+  getConfig,
+  isPlatform,
 } from "@ionic/react";
 import { caretDownOutline, logOutOutline } from "ionicons/icons";
-import React from "react";
-import { useHistory } from "react-router";
+import React, { useCallback, useEffect, useRef } from "react";
+import { useHistory, useLocation } from "react-router";
 import MainMenu from "./MainMenu";
+import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
+
+export function hasHeader(): string {
+  return "has-header " + getConfig()?.get("mode");
+}
 
 const Header: React.FC = () => {
   const [present] = useIonActionSheet();
   const history = useHistory();
+  const location = useLocation();
+  const headerRef = useRef<HTMLIonHeaderElement>(
+    document.querySelector("ion-header")
+  );
+  const showHeaderActions = useCallback(async () => {
+    if (isPlatform("desktop")) {
+      present({
+        header: "Lisa Manoban " + isPlatform("desktop"),
+        buttons: [
+          {
+            icon: logOutOutline,
+            text: "Logout",
+            handler: () => {
+              history.replace("/login");
+            },
+          },
+        ],
+      });
+    } else {
+      const result = await ActionSheet.showActions({
+        title: "Lisa Manoban " + isPlatform("desktop"),
+        message: "Options",
+        options: [
+          {
+            title: "Logout",
+          },
+          {
+            title: "Cancel",
+            style: ActionSheetButtonStyle.Destructive,
+          },
+        ],
+      });
+
+      switch (result.index) {
+        case 0:
+          history.replace("/login");
+          break;
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      if (location.pathname === "/login") {
+        headerRef.current.style.display = "none";
+      } else {
+        headerRef.current.style.display = "initial";
+      }
+    }
+  }, [location]);
 
   return (
     <>
       <MainMenu />
-      <IonHeader>
+      <IonHeader id="main-header" ref={headerRef}>
         <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton autoHide={false} />
@@ -34,22 +91,7 @@ const Header: React.FC = () => {
                 alt="Lisa"
               />
             </IonAvatar>
-            <IonButton
-              onClick={() => {
-                present({
-                  header: "Lisa Manoban",
-                  buttons: [
-                    {
-                      icon: logOutOutline,
-                      text: "Logout",
-                      handler: () => {
-                        history.replace("/login");
-                      },
-                    },
-                  ],
-                });
-              }}
-            >
+            <IonButton onClick={showHeaderActions}>
               <IonIcon slot="end" icon={caretDownOutline} />
             </IonButton>
           </IonButtons>
