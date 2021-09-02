@@ -1,0 +1,50 @@
+#class-menu {
+  --width: 320px;
+  &.show-menu {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  &::part(container) {
+    box-shadow: none;
+  }
+  ion-toolbar,
+  ion-content,
+  & {
+    --background: transparent;
+  }
+  ion-header {
+    background: rgb(117, 57, 255);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  }
+  ion-list {
+    --ion-item-background: transparent;
+  }
+  ion-toolbar {
+    .class-name {
+      margin-left: 17px;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      display: block;
+      max-width: 230px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  ion-header {
+    ion-img.class-cover {
+      max-height: 220px;
+    }
+  }
+  .class-schedule {
+    padding: 12px 7px;
+    ion-text {
+      font-size: 14px;
+      letter-spacing: 0.19px;
+      color: #fff;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+  }
+}

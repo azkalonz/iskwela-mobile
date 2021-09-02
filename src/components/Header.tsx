@@ -16,6 +16,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router";
 import MainMenu from "./MainMenu";
 import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
+import ClassMenu from "./ClassMenu";
 
 export function hasHeader(): string {
   return "has-header " + getConfig()?.get("mode");
@@ -77,7 +78,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <MainMenu />
+      {location.pathname.indexOf("class") < 0 ? <MainMenu /> : <ClassMenu />}
       <IonHeader id="main-header" ref={headerRef}>
         <IonToolbar>
           <IonButtons slot="start">
