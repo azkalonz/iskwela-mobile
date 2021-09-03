@@ -8,12 +8,19 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
+import { useEffect } from "react";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
+import { useStoreActions } from "../redux/store";
 import "./Home.scss";
 
 const Home: React.FC = () => {
   const [present] = useIonAlert();
+  const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
+
+  useEffect(() => {
+    setHeaderTitle("Classes");
+  }, []);
 
   return (
     <IonPage className={hasHeader()}>

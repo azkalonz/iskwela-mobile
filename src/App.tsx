@@ -13,6 +13,7 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/typography.css";
+import { StoreProvider } from "easy-peasy";
 import { Route } from "react-router-dom";
 import "./App.scss";
 import Header from "./components/Header";
@@ -21,18 +22,21 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 /* Theme variables */
 import "./theme/variables.css";
+import store from "./redux/store";
 
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonReactRouter>
-        <Header />
-        <IonRouterOutlet id="router-outlet">
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/class/:id?" component={Class} />
-        </IonRouterOutlet>
-      </IonReactRouter>
+      <StoreProvider store={store}>
+        <IonReactRouter>
+          <Header />
+          <IonRouterOutlet id="router-outlet">
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/class/:id?" component={Class} />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </StoreProvider>
     </IonApp>
   );
 };

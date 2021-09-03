@@ -17,6 +17,7 @@ import { useHistory, useLocation } from "react-router";
 import MainMenu from "./MainMenu";
 import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
 import ClassMenu from "./ClassMenu";
+import { useStoreState } from "../redux/store";
 
 export function hasHeader(): string {
   return "has-header " + getConfig()?.get("mode");
@@ -26,6 +27,7 @@ const Header: React.FC = () => {
   const [present] = useIonActionSheet();
   const history = useHistory();
   const location = useLocation();
+  const { headerTitle } = useStoreState((states) => states.nonPersistent);
   const headerRef = useRef<HTMLIonHeaderElement>(
     document.querySelector("ion-header")
   );
@@ -84,7 +86,7 @@ const Header: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton autoHide={false} />
           </IonButtons>
-          <IonTitle>Classes</IonTitle>
+          <IonTitle>{headerTitle}</IonTitle>
           <IonButtons slot="end">
             <IonAvatar slot="end" style={{ height: 30, width: 30 }}>
               <img

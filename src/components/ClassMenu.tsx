@@ -18,9 +18,11 @@ import React, { useRef } from "react";
 import "./MainMenu.scss";
 import "./ClassMenu.scss";
 import { useHistory } from "react-router";
+import { useStoreState } from "../redux/store";
 
 const ClassMenu: React.FC = () => {
   const history = useHistory();
+  const { headerTitle } = useStoreState((states) => states.nonPersistent);
   const menuRef = useRef<HTMLIonMenuElement>(
     document.createElement("ion-menu")
   );
@@ -45,7 +47,7 @@ const ClassMenu: React.FC = () => {
             <div className="icon-classes" slot="end" style={{ fontSize: 20 }} />
           </IonButton>
           <IonText slot="start" className="class-name">
-            English 101
+            {headerTitle}
           </IonText>
           <IonButton
             onClick={() => {

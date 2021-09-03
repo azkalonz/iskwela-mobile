@@ -1,7 +1,7 @@
 #class-menu {
   --width: 320px;
   &.show-menu {
-    background: rgba(0, 0, 0, 0.7);
+    //background: rgba(0, 0, 0, 0.7);
   }
   &::part(container) {
     box-shadow: none;
