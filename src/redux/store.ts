@@ -1,10 +1,13 @@
-import { createStore, createTypedHooks } from "easy-peasy";
+import { createStore, createTypedHooks, persist } from "easy-peasy";
 import { StoreModel } from "./model";
-import n from "./nonPersistent";
+import { nonPersistent, userStorage as u } from "./models";
 
 const store = createStore<StoreModel>(
   {
-    nonPersistent: n,
+    nonPersistent,
+    userStorage: persist(u, {
+      storage: "localStorage",
+    }),
   },
   {
     version: 1,

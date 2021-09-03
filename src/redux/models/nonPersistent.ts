@@ -1,5 +1,5 @@
 import { action } from "easy-peasy";
-import { NonPersistentStorageModel } from "./model";
+import { NonPersistentStorageModel } from "../model";
 
 const nonPersistent: NonPersistentStorageModel = {
   headerTitle: "",
