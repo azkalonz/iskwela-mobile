@@ -6,9 +6,9 @@ import {
   IonItem,
   IonPage,
   useIonAlert,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import { useEffect } from "react";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
 import { useStoreActions } from "../redux/store";
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const [present] = useIonAlert();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
 
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     setHeaderTitle("Classes");
   }, []);
 

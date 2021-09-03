@@ -1,14 +1,19 @@
-import { IonContent, IonPage, IonText } from "@ionic/react";
-import React, { useEffect } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonText,
+  useIonViewWillEnter,
+} from "@ionic/react";
+import React from "react";
 import { hasHeader } from "../components/Header";
 import { useStoreActions } from "../redux/store";
 
 const Class: React.FC = () => {
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
 
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     setHeaderTitle("English 101");
-  }, []);
+  });
 
   return (
     <IonPage className={hasHeader()}>
