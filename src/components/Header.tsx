@@ -1,4 +1,6 @@
+import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
 import {
+  getConfig,
   IonAvatar,
   IonButton,
   IonButtons,
@@ -7,17 +9,15 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
-  useIonActionSheet,
-  getConfig,
   isPlatform,
+  useIonActionSheet,
 } from "@ionic/react";
 import { caretDownOutline, logOutOutline } from "ionicons/icons";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router";
-import MainMenu from "./MainMenu";
-import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
+import { useStoreActions, useStoreState } from "../redux/store";
 import ClassMenu from "./ClassMenu";
-import { useStoreState } from "../redux/store";
+import MainMenu from "./MainMenu";
 
 export function hasHeader(): string {
   return "has-header " + getConfig()?.get("mode");
@@ -28,26 +28,31 @@ const Header: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const { headerTitle } = useStoreState((states) => states.nonPersistent);
+  const { info } = useStoreState((states) => states.userStorage);
+  const { logout } = useStoreActions((states) => states.userStorage);
   const headerRef = useRef<HTMLIonHeaderElement>(
     document.querySelector("ion-header")
   );
+  const handleLogout = () => {
+    logout();
+    history.replace("/login");
+  };
   const showHeaderActions = useCallback(async () => {
+    const fullName = info?.first_name + " " + info?.last_name;
     if (isPlatform("desktop")) {
       present({
-        header: "Lisa Manoban " + isPlatform("desktop"),
+        header: fullName,
         buttons: [
           {
             icon: logOutOutline,
             text: "Logout",
-            handler: () => {
-              history.replace("/login");
-            },
+            handler: handleLogout,
           },
         ],
       });
     } else {
       const result = await ActionSheet.showActions({
-        title: "Lisa Manoban " + isPlatform("desktop"),
+        title: fullName,
         message: "Options",
         options: [
           {
@@ -66,7 +71,7 @@ const Header: React.FC = () => {
           break;
       }
     }
-  }, []);
+  }, [info]);
 
   useEffect(() => {
     if (headerRef.current) {
