@@ -9,18 +9,29 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
+import { useEffect } from "react";
+import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
+import useIsLoggedIn from "../hooks/useIsLoggedIn";
 import { useStoreActions } from "../redux/store";
 import "./Home.scss";
 
 const Home: React.FC = () => {
   const [present] = useIonAlert();
+  const history = useHistory();
+  const isLoggedIn = useIsLoggedIn();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
 
   useIonViewWillEnter(() => {
     setHeaderTitle("Classes");
   }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      history.replace("/login");
+    }
+  }, [isLoggedIn]);
 
   return (
     <IonPage className={hasHeader()}>
