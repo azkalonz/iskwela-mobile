@@ -1,6 +1,7 @@
 .ion-page {
   overflow-y: auto;
   pointer-events: visible !important;
+  background-color: #eee6ff;
   &.has-header {
     &.ios {
       margin-top: 44px;
@@ -98,6 +99,9 @@ ion-button.ion-color-transparent {
     color: #7539ff;
   }
 }
+ion-refresher {
+  z-index: 10;
+}
 
 // Skeleton Loader
 .skeleton-loader {
@@ -106,7 +110,7 @@ ion-button.ion-color-transparent {
   right: 0;
   bottom: 0;
   top: 0;
-  background: #d4d4d4;
+  background: #f0e7ff;
   &::after {
     position: absolute;
     top: 0;

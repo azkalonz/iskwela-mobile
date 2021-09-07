@@ -10,31 +10,16 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useHistory, useLocation } from "react-router";
+import { useStoreState } from "../redux/store";
 import "./MainMenu.scss";
 
-export function changeHeaderTitle(title: string): void {
-  document.querySelector<HTMLInputElement>(
-    "#main-header ion-title"
-  )!.innerText = title;
-}
-
 const MainMenu: React.FC = () => {
+  const { headerTitle } = useStoreState((states) => states.nonPersistent);
   const history = useHistory();
   const menuRef = useRef(document.createElement("ion-menu"));
   const location = useLocation();
-
-  useEffect(() => {
-    const headerTitle =
-      {
-        "/": "Classes",
-        "/class": "English 101",
-        "/class/": "English 101",
-      }[location.pathname] || "";
-    menuRef.current.close();
-    changeHeaderTitle(headerTitle);
-  }, [location]);
 
   return (
     <IonMenu
@@ -73,7 +58,7 @@ const MainMenu: React.FC = () => {
             <div className="icon">
               <div className="icon-classes" slot="start" />
             </div>
-            <IonLabel>Classes</IonLabel>
+            <IonLabel>{headerTitle}</IonLabel>
           </IonItem>
         </IonList>
       </IonContent>

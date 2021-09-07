@@ -5,63 +5,66 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonIcon,
   IonText,
 } from "@ionic/react";
+import { personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { useHistory } from "react-router";
+import { ClassModel } from "../redux/model";
 
-interface ClassDetails {
-  title: String;
-  description?: String;
-  coverImg?: String;
-  timeStart: String;
-  timeEnd: String;
-  date: String;
-  teacherName: String;
-  teacherImg?: String;
-  ref?: React.MutableRefObject<any>;
-}
-
-const ClassCard: React.FC<ClassDetails> = ({
-  title,
-  description,
-  timeStart,
-  coverImg,
-  timeEnd,
-  date,
-  teacherImg,
-  teacherName,
-}) => {
+const ClassCard: React.FC<ClassModel> = (props) => {
+  const {
+    name,
+    description,
+    time_from,
+    bg_image,
+    time_to,
+    date_from,
+    teacher,
+  } = props;
   const history = useHistory();
 
   return (
     <IonCard
       className="class"
       onClick={() => {
-        history.push("/class");
+        history.push({
+          pathname: "/class",
+          state: props,
+        });
       }}
     >
       <IonCardHeader
         style={{
-          backgroundImage: `url("${coverImg}")`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0)),url("${
+            bg_image || "/class/default.svg"
+          }")`,
         }}
       >
-        <IonCardTitle>{title}</IonCardTitle>
+        <IonCardTitle>{name}</IonCardTitle>
         <IonCardSubtitle>{description}</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
         <div className="class-details">
           <IonText>
-            {timeStart} - {timeEnd}
+            {time_from} - {time_to}
           </IonText>
           <br />
-          <IonText>{date}</IonText>
+          <IonText>{date_from}</IonText>
         </div>
         <IonAvatar>
-          <img src={`${teacherImg}`} />
+          {teacher?.profile_picture ? (
+            <img src={`${teacher?.profile_picture}`} />
+          ) : (
+            <IonIcon
+              src={personCircleOutline}
+              style={{ width: "100%", height: "100%", background: "#fff" }}
+            />
+          )}
         </IonAvatar>
         <div className="class-teacher">
-          <IonText>{teacherName}</IonText>
+          <IonText>{teacher?.first_name + " " + teacher?.last_name}</IonText>
         </div>
       </IonCardContent>
     </IonCard>

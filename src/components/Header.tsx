@@ -1,4 +1,3 @@
-import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
 import {
   getConfig,
   IonAvatar,
@@ -9,10 +8,13 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
-  isPlatform,
   useIonActionSheet,
 } from "@ionic/react";
-import { caretDownOutline, logOutOutline } from "ionicons/icons";
+import {
+  caretDownOutline,
+  logOutOutline,
+  personCircleOutline,
+} from "ionicons/icons";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router";
 import { useStoreActions, useStoreState } from "../redux/store";
@@ -39,38 +41,16 @@ const Header: React.FC = () => {
   };
   const showHeaderActions = useCallback(async () => {
     const fullName = info?.first_name + " " + info?.last_name;
-    if (isPlatform("desktop")) {
-      present({
-        header: fullName,
-        buttons: [
-          {
-            icon: logOutOutline,
-            text: "Logout",
-            handler: handleLogout,
-          },
-        ],
-      });
-    } else {
-      const result = await ActionSheet.showActions({
-        title: fullName,
-        message: "Options",
-        options: [
-          {
-            title: "Logout",
-          },
-          {
-            title: "Cancel",
-            style: ActionSheetButtonStyle.Destructive,
-          },
-        ],
-      });
-
-      switch (result.index) {
-        case 0:
-          history.replace("/login");
-          break;
-      }
-    }
+    present({
+      header: fullName,
+      buttons: [
+        {
+          icon: logOutOutline,
+          text: "Logout",
+          handler: handleLogout,
+        },
+      ],
+    });
   }, [info]);
 
   useEffect(() => {
@@ -94,10 +74,14 @@ const Header: React.FC = () => {
           <IonTitle>{headerTitle}</IonTitle>
           <IonButtons slot="end">
             <IonAvatar slot="end" style={{ height: 30, width: 30 }}>
-              <img
-                src="https://static.toiimg.com/photo/msid-84340517/84340517.jpg"
-                alt="Lisa"
-              />
+              {info?.preferences?.profile_picture ? (
+                <img src={info?.preferences?.profile_picture} alt="Lisa" />
+              ) : (
+                <IonIcon
+                  src={personCircleOutline}
+                  style={{ width: "100%", height: "100%", background: "#fff" }}
+                />
+              )}
             </IonAvatar>
             <IonButton onClick={showHeaderActions}>
               <IonIcon slot="end" icon={caretDownOutline} />
