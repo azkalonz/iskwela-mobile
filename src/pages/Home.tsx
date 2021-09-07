@@ -9,11 +9,12 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
 import useIsLoggedIn from "../hooks/useIsLoggedIn";
+import { ClassesModel } from "../redux/model";
 import { useStoreActions } from "../redux/store";
 import "./Home.scss";
 
@@ -22,6 +23,8 @@ const Home: React.FC = () => {
   const history = useHistory();
   const isLoggedIn = useIsLoggedIn();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
+  const { getClasses } = useStoreActions((states) => states.classes);
+  const [classes, setClasses] = useState<ClassesModel>();
 
   useIonViewWillEnter(() => {
     setHeaderTitle("Classes");
@@ -30,6 +33,17 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       history.replace("/login");
+    } else {
+      getClasses({
+        success: (classes) => {
+          setClasses(classes);
+        },
+        fail: (error) => {
+          if (error.response?.status !== 200) {
+            present(`Cannot fetch classes [${error.response?.status}]`);
+          }
+        },
+      });
     }
   }, [isLoggedIn]);
 
@@ -49,16 +63,20 @@ const Home: React.FC = () => {
               </IonButton>
             </IonInput>
           </IonItem>
-          <ClassCard
-            title="English 101"
-            description="Fundamentals"
-            teacherName="Lisa Manoban"
-            teacherImg="https://static.toiimg.com/photo/msid-84340517/84340517.jpg"
-            coverImg="/class/english.svg"
-            timeStart="9:00 AM"
-            timeEnd="10:00 AM"
-            date="2 September 2021"
-          />
+          {classes &&
+            classes.classes.map((c) => (
+              <ClassCard
+                key={c.id}
+                title={c.name}
+                description={c.description}
+                teacherName={c.teacher.first_name + " " + c.teacher.last_name}
+                teacherImg={c.teacher.profile_picture}
+                coverImg={`${c.bg_image}`}
+                timeStart={c.time_from}
+                timeEnd={c.time_to}
+                date={c.date_from}
+              />
+            ))}
         </div>
       </IonContent>
     </IonPage>

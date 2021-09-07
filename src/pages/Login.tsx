@@ -8,6 +8,7 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { AxiosError } from "axios";
+import { error } from "console";
 import React, { useRef } from "react";
 import { useHistory } from "react-router";
 import axios from "../axios";
@@ -29,34 +30,32 @@ const Login: React.FC = () => {
   const passwordRef = useRef<HTMLIonInputElement>(
     document.createElement("ion-input")
   );
-  const { setAccessToken } = useStoreActions((states) => states.userStorage);
+  const { setAccessToken, login } = useStoreActions(
+    (states) => states.userStorage
+  );
 
   const handleLogin = async () => {
-    const username = usernameRef.current.value;
-    const password = passwordRef.current.value;
+    const username = usernameRef.current.value + "";
+    const password = passwordRef.current.value + "";
     presentLoading();
-    try {
-      const token = await axios.post(
-        `login?username=${username}&password=${password}`
-      );
-      const result = await setAccessToken({
-        type: token.data.token_type,
-        token: token.data.access_token,
-      });
-      if (result) {
-        history.replace("/");
-      }
-    } catch (err) {
-      const error = err as AxiosError;
-      if (error.response) {
-        if (error.response.status === 401) {
-          present("Invalid Username/Password", 2000);
-        } else {
-          present("Something went wrong. Please try again.");
+    login({
+      username,
+      password,
+      success: () => {
+        history.push("/");
+        dismissLoading();
+      },
+      fail: (error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            present("Invalid Username/Password", 2000);
+          } else {
+            present("Something went wrong. Please try again.");
+          }
+          dismissLoading();
         }
-      }
-    }
-    dismissLoading();
+      },
+    });
   };
 
   return (
