@@ -39,5 +39,10 @@ export default function (
       skeletonize(elementRef.current);
     }
   }, []);
-  return null;
+
+  return () => {
+    if (elementRef.current) {
+      skeletonize(elementRef.current);
+    }
+  };
 }

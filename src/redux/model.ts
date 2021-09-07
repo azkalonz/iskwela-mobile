@@ -102,4 +102,5 @@ export interface ClassesModel extends UserInfo {
     }
   >;
   setClasses: Action<ClassesModel, ClassModel[]>;
+  removeClasses: Action<ClassesModel>;
 }

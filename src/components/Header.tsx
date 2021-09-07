@@ -1,4 +1,3 @@
-import { ActionSheet, ActionSheetButtonStyle } from "@capacitor/action-sheet";
 import {
   getConfig,
   IonAvatar,
@@ -9,7 +8,6 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
-  isPlatform,
   useIonActionSheet,
 } from "@ionic/react";
 import { caretDownOutline, logOutOutline } from "ionicons/icons";
@@ -39,38 +37,16 @@ const Header: React.FC = () => {
   };
   const showHeaderActions = useCallback(async () => {
     const fullName = info?.first_name + " " + info?.last_name;
-    if (isPlatform("desktop")) {
-      present({
-        header: fullName,
-        buttons: [
-          {
-            icon: logOutOutline,
-            text: "Logout",
-            handler: handleLogout,
-          },
-        ],
-      });
-    } else {
-      const result = await ActionSheet.showActions({
-        title: fullName,
-        message: "Options",
-        options: [
-          {
-            title: "Logout",
-          },
-          {
-            title: "Cancel",
-            style: ActionSheetButtonStyle.Destructive,
-          },
-        ],
-      });
-
-      switch (result.index) {
-        case 0:
-          history.replace("/login");
-          break;
-      }
-    }
+    present({
+      header: fullName,
+      buttons: [
+        {
+          icon: logOutOutline,
+          text: "Logout",
+          handler: handleLogout,
+        },
+      ],
+    });
   }, [info]);
 
   useEffect(() => {

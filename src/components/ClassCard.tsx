@@ -5,20 +5,22 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonIcon,
   IonText,
 } from "@ionic/react";
+import { personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { useHistory } from "react-router";
 
 interface ClassDetails {
-  title: String;
-  description?: String;
-  coverImg?: String;
-  timeStart: String;
-  timeEnd: String;
-  date: String;
-  teacherName: String;
-  teacherImg?: String;
+  title: string;
+  description?: string;
+  coverImg?: any;
+  timeStart: string;
+  timeEnd: string;
+  date: string;
+  teacherName: string;
+  teacherImg?: string;
   ref?: React.MutableRefObject<any>;
 }
 
@@ -43,7 +45,9 @@ const ClassCard: React.FC<ClassDetails> = ({
     >
       <IonCardHeader
         style={{
-          backgroundImage: `url("${coverImg}")`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0)),url("${
+            coverImg || "/class/default.svg"
+          }")`,
         }}
       >
         <IonCardTitle>{title}</IonCardTitle>
@@ -58,7 +62,14 @@ const ClassCard: React.FC<ClassDetails> = ({
           <IonText>{date}</IonText>
         </div>
         <IonAvatar>
-          <img src={`${teacherImg}`} />
+          {teacherImg ? (
+            <img src={`${teacherImg}`} />
+          ) : (
+            <IonIcon
+              src={personCircleOutline}
+              style={{ width: "100%", height: "100%", background: "#fff" }}
+            />
+          )}
         </IonAvatar>
         <div className="class-teacher">
           <IonText>{teacherName}</IonText>

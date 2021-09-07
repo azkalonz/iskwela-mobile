@@ -1,3 +1,4 @@
+import { RefresherEventDetail } from "@ionic/core";
 import {
   IonButton,
   IonContent,
@@ -5,11 +6,13 @@ import {
   IonInput,
   IonItem,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   useIonAlert,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
@@ -25,7 +28,7 @@ const Home: React.FC = () => {
   const isLoggedIn = useIsLoggedIn();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
   const { getClasses } = useStoreActions((states) => states.classes);
-  const [classes, setClasses] = useState<ClassesModel>();
+  const [classes, setClasses] = useState<ClassesModel | null>();
   const skeletonRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const skeletonize = useSkeletonLoading(
     skeletonRef,
@@ -35,8 +38,24 @@ const Home: React.FC = () => {
       ".class-teacher ion-text",
       "ion-avatar",
     ],
-    ["ion-card-title", "ion-card-subtitle"]
+    ["ion-card-title", "ion-card-subtitle", "ion-avatar ion-icon"]
   );
+
+  const onHomeRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    setClasses(null);
+    skeletonize();
+    getClasses({
+      success: (classes) => {
+        setClasses(classes);
+        event.detail.complete();
+      },
+      fail: (error) => {
+        if (error.response?.status !== 200) {
+          present(`Cannot fetch classes [${error.response?.status}]`);
+        }
+      },
+    });
+  };
 
   useIonViewWillEnter(() => {
     setHeaderTitle("Classes");
@@ -62,6 +81,9 @@ const Home: React.FC = () => {
   return (
     <IonPage className={hasHeader()}>
       <IonContent fullscreen>
+        <IonRefresher onIonRefresh={onHomeRefresh} slot="fixed">
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <div className="classes">
           <IonItem className="iskwela-theme">
             <IonInput clearOnEdit={false} placeholder="Search">
@@ -104,7 +126,7 @@ const Home: React.FC = () => {
                 description={c.description}
                 teacherName={c.teacher.first_name + " " + c.teacher.last_name}
                 teacherImg={c.teacher.profile_picture}
-                coverImg={`${c.bg_image}`}
+                coverImg={c.bg_image}
                 timeStart={c.time_from}
                 timeEnd={c.time_to}
                 date={c.date_from}

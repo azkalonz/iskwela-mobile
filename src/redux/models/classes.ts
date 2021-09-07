@@ -7,6 +7,7 @@ import store from "../store";
 const classes: ClassesModel = {
   classes: [],
   getClasses: thunk(async (actions, { success, fail }) => {
+    actions.removeClasses();
     try {
       const accessToken = store.getState().userStorage.accessToken;
       const classes = await axios.get("student/classes", {
@@ -25,6 +26,9 @@ const classes: ClassesModel = {
         fail(err);
       }
     }
+  }),
+  removeClasses: action((states) => {
+    states.classes = [];
   }),
   setClasses: action((states, classes: ClassModel[]) => {
     states.classes = classes;

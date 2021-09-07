@@ -7,18 +7,10 @@ import {
   useIonLoading,
   useIonToast,
 } from "@ionic/react";
-import { AxiosError } from "axios";
-import { error } from "console";
 import React, { useRef } from "react";
 import { useHistory } from "react-router";
-import axios from "../axios";
 import { useStoreActions } from "../redux/store";
 import "./Login.scss";
-
-interface LoginParams {
-  username: string;
-  password: string;
-}
 
 const Login: React.FC = () => {
   const history = useHistory();
