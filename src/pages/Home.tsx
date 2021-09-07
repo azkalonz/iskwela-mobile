@@ -9,11 +9,12 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
 import useIsLoggedIn from "../hooks/useIsLoggedIn";
+import useSkeletonLoading from "../hooks/useSkeletonLoading";
 import { ClassesModel } from "../redux/model";
 import { useStoreActions } from "../redux/store";
 import "./Home.scss";
@@ -25,6 +26,17 @@ const Home: React.FC = () => {
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
   const { getClasses } = useStoreActions((states) => states.classes);
   const [classes, setClasses] = useState<ClassesModel>();
+  const skeletonRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const skeletonize = useSkeletonLoading(
+    skeletonRef,
+    [
+      "ion-card-header",
+      ".class-details ion-text",
+      ".class-teacher ion-text",
+      "ion-avatar",
+    ],
+    ["ion-card-title", "ion-card-subtitle"]
+  );
 
   useIonViewWillEnter(() => {
     setHeaderTitle("Classes");
@@ -50,7 +62,7 @@ const Home: React.FC = () => {
   return (
     <IonPage className={hasHeader()}>
       <IonContent fullscreen>
-        <div id="classes">
+        <div className="classes">
           <IonItem className="iskwela-theme">
             <IonInput clearOnEdit={false} placeholder="Search">
               <IonButton
@@ -63,6 +75,27 @@ const Home: React.FC = () => {
               </IonButton>
             </IonInput>
           </IonItem>
+          {!classes && (
+            <div
+              ref={skeletonRef}
+              style={{ width: "100%" }}
+              className="classes"
+            >
+              {new Array(5).fill(0).map((a, i) => (
+                <ClassCard
+                  key={i}
+                  title=""
+                  description=""
+                  teacherName="Teacher Name"
+                  teacherImg=""
+                  coverImg="/class/english.svg"
+                  timeStart="9:00 AM"
+                  timeEnd="10:00 AM"
+                  date="2 September 2021"
+                />
+              ))}
+            </div>
+          )}
           {classes &&
             classes.classes.map((c) => (
               <ClassCard

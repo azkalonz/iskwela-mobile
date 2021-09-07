@@ -19,6 +19,7 @@ interface ClassDetails {
   date: String;
   teacherName: String;
   teacherImg?: String;
+  ref?: React.MutableRefObject<any>;
 }
 
 const ClassCard: React.FC<ClassDetails> = ({

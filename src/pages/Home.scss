@@ -1,4 +1,4 @@
-#classes {
+.classes {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -32,6 +32,7 @@ ion-card.class {
   .class-details,
   .class-teacher {
     white-space: nowrap;
+    position: relative;
   }
   ion-card-title {
     color: #fff;
@@ -58,6 +59,7 @@ ion-card.class {
     height: 71px;
     ion-avatar {
       position: absolute;
+      overflow: hidden;
       right: 17px;
       bottom: 35px;
       width: 75px;
