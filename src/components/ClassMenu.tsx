@@ -23,6 +23,7 @@ import { useStoreState } from "../redux/store";
 const ClassMenu: React.FC = () => {
   const history = useHistory();
   const { headerTitle } = useStoreState((states) => states.nonPersistent);
+  const { currentClass } = useStoreState((states) => states.classes);
   const menuRef = useRef<HTMLIonMenuElement>(
     document.createElement("ion-menu")
   );
@@ -65,14 +66,16 @@ const ClassMenu: React.FC = () => {
         </IonToolbar>
         <IonImg
           className="class-cover"
-          src="https://iskwela.sgp1.digitaloceanspaces.com/SCHOOL01/public/VJP4bYZByPqp7ytutWosgmWHtXfcLKlJ1OqA9qYf.png"
+          src={currentClass?.bg_image || "/class/default.svg"}
         />
         <IonRow className="class-schedule">
           <IonCol>
-            <IonText>April 1, 2021</IonText>
+            <IonText>{currentClass?.date_from}</IonText>
           </IonCol>
           <IonCol>
-            <IonText>10:00 AM - 12:00 PM</IonText>
+            <IonText>
+              {currentClass?.time_from + " " + currentClass?.time_to}
+            </IonText>
           </IonCol>
         </IonRow>
       </IonHeader>

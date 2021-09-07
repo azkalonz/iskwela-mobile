@@ -21,7 +21,11 @@ export type UserInfo = {
   email?: string;
   phone_number?: number;
   status?: number;
-  preferences?: object;
+  preferences?: {
+    email_subscription: number;
+    profile_picture: string;
+    push_notifications: 1;
+  };
 };
 
 export interface AxiosErrorCallback {
@@ -32,8 +36,12 @@ export interface UserStorageModel extends PersistStorage {
   isLoggedIn: boolean;
   info?: UserInfo;
   accessToken?: string;
-  verifyToken: Thunk<UserStorageModel, AuthData>;
-  setAccessToken: Action<UserStorageModel, string>;
+  tokenType?: string;
+  verifyToken: Thunk<
+    UserStorageModel,
+    { authData: AuthData; success?: Function; fail?: AxiosErrorCallback }
+  >;
+  setAccessToken: Action<UserStorageModel, AuthData>;
   setIsLoggedIn: Action<UserStorageModel, boolean>;
   setInfo: Action<UserStorageModel, object>;
   logout: Action<UserStorageModel>;
@@ -55,34 +63,34 @@ export interface StoreModel {
 }
 
 export type ClassModel = {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   bg_image: string | null;
-  room_number: string;
-  frequency: string;
+  room_number?: string;
+  frequency?: string;
   date_from: string;
   date_to: string;
   time_from: string;
   time_to: string;
-  next_schedule: any;
-  color: string;
-  subject: {
+  next_schedule?: any;
+  color?: string;
+  subject?: {
     id: number;
     name: string;
   };
-  teacher: {
+  teacher?: {
     id: number;
     first_name: string;
     last_name: string;
     profile_picture: string;
   };
-  section: {
+  section?: {
     id: number;
     name: string;
     year_id: number;
   };
-  year: {
+  year?: {
     id: number;
     name: string;
   };
@@ -94,6 +102,7 @@ interface ClassesCallback {
 
 export interface ClassesModel extends UserInfo {
   classes: ClassModel[] | [];
+  currentClass: ClassModel | null;
   getClasses: Thunk<
     ClassesModel,
     {
@@ -101,6 +110,7 @@ export interface ClassesModel extends UserInfo {
       fail?: AxiosErrorCallback;
     }
   >;
+  setCurrentClass: Action<ClassesModel, ClassModel>;
   setClasses: Action<ClassesModel, ClassModel[]>;
   removeClasses: Action<ClassesModel>;
 }

@@ -6,6 +6,16 @@ import store from "../store";
 
 const classes: ClassesModel = {
   classes: [],
+  currentClass: null,
+  removeClasses: action((states) => {
+    states.classes = [];
+  }),
+  setClasses: action((states, classes: ClassModel[]) => {
+    states.classes = classes;
+  }),
+  setCurrentClass: action((states, Class) => {
+    states.currentClass = Class;
+  }),
   getClasses: thunk(async (actions, { success, fail }) => {
     actions.removeClasses();
     try {
@@ -26,12 +36,6 @@ const classes: ClassesModel = {
         fail(err);
       }
     }
-  }),
-  removeClasses: action((states) => {
-    states.classes = [];
-  }),
-  setClasses: action((states, classes: ClassModel[]) => {
-    states.classes = classes;
   }),
 };
 

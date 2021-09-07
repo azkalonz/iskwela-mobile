@@ -19,7 +19,7 @@ import { hasHeader } from "../components/Header";
 import useIsLoggedIn from "../hooks/useIsLoggedIn";
 import useSkeletonLoading from "../hooks/useSkeletonLoading";
 import { ClassesModel } from "../redux/model";
-import { useStoreActions } from "../redux/store";
+import { useStoreActions, useStoreState } from "../redux/store";
 import "./Home.scss";
 
 const Home: React.FC = () => {
@@ -28,6 +28,10 @@ const Home: React.FC = () => {
   const isLoggedIn = useIsLoggedIn();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
   const { getClasses } = useStoreActions((states) => states.classes);
+  const { verifyToken } = useStoreActions((states) => states.userStorage);
+  const { accessToken, tokenType } = useStoreState(
+    (states) => states.userStorage
+  );
   const [classes, setClasses] = useState<ClassesModel | null>();
   const skeletonRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const skeletonize = useSkeletonLoading(
@@ -64,15 +68,27 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       history.replace("/login");
-    } else {
-      getClasses({
-        success: (classes) => {
-          setClasses(classes);
+    } else if (accessToken && tokenType) {
+      // verify if session is valid
+      verifyToken({
+        authData: {
+          token: accessToken,
+          type: tokenType,
         },
-        fail: (error) => {
-          if (error.response?.status !== 200) {
-            present(`Cannot fetch classes [${error.response?.status}]`);
-          }
+        success: () => {
+          getClasses({
+            success: (classes) => {
+              setClasses(classes);
+            },
+            fail: (error) => {
+              if (error.response?.status !== 200) {
+                present(`Cannot fetch classes [${error.response?.status}]`);
+              }
+            },
+          });
+        },
+        fail: () => {
+          history.replace("/login");
         },
       });
     }
@@ -106,32 +122,19 @@ const Home: React.FC = () => {
               {new Array(5).fill(0).map((a, i) => (
                 <ClassCard
                   key={i}
-                  title=""
+                  name=""
                   description=""
-                  teacherName="Teacher Name"
-                  teacherImg=""
-                  coverImg="/class/english.svg"
-                  timeStart="9:00 AM"
-                  timeEnd="10:00 AM"
-                  date="2 September 2021"
+                  time_from="9:00 AM"
+                  time_to="10:00 AM"
+                  date_from="2 September 2021"
+                  date_to="2 September 2021"
+                  bg_image={null}
                 />
               ))}
             </div>
           )}
           {classes &&
-            classes.classes.map((c) => (
-              <ClassCard
-                key={c.id}
-                title={c.name}
-                description={c.description}
-                teacherName={c.teacher.first_name + " " + c.teacher.last_name}
-                teacherImg={c.teacher.profile_picture}
-                coverImg={c.bg_image}
-                timeStart={c.time_from}
-                timeEnd={c.time_to}
-                date={c.date_from}
-              />
-            ))}
+            classes.classes.map((c) => <ClassCard key={c.id} {...c} />)}
         </div>
       </IonContent>
     </IonPage>

@@ -10,7 +10,11 @@ import {
   IonToolbar,
   useIonActionSheet,
 } from "@ionic/react";
-import { caretDownOutline, logOutOutline } from "ionicons/icons";
+import {
+  caretDownOutline,
+  logOutOutline,
+  personCircleOutline,
+} from "ionicons/icons";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router";
 import { useStoreActions, useStoreState } from "../redux/store";
@@ -70,10 +74,14 @@ const Header: React.FC = () => {
           <IonTitle>{headerTitle}</IonTitle>
           <IonButtons slot="end">
             <IonAvatar slot="end" style={{ height: 30, width: 30 }}>
-              <img
-                src="https://static.toiimg.com/photo/msid-84340517/84340517.jpg"
-                alt="Lisa"
-              />
+              {info?.preferences?.profile_picture ? (
+                <img src={info?.preferences?.profile_picture} alt="Lisa" />
+              ) : (
+                <IonIcon
+                  src={personCircleOutline}
+                  style={{ width: "100%", height: "100%", background: "#fff" }}
+                />
+              )}
             </IonAvatar>
             <IonButton onClick={showHeaderActions}>
               <IonIcon slot="end" icon={caretDownOutline} />

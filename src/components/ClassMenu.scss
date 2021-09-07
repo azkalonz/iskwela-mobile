@@ -35,6 +35,7 @@
   ion-header {
     ion-img.class-cover {
       max-height: 220px;
+      overflow: hidden;
     }
   }
   .class-schedule {

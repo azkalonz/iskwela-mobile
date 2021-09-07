@@ -11,59 +11,51 @@ import {
 import { personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { useHistory } from "react-router";
+import { ClassModel } from "../redux/model";
 
-interface ClassDetails {
-  title: string;
-  description?: string;
-  coverImg?: any;
-  timeStart: string;
-  timeEnd: string;
-  date: string;
-  teacherName: string;
-  teacherImg?: string;
-  ref?: React.MutableRefObject<any>;
-}
-
-const ClassCard: React.FC<ClassDetails> = ({
-  title,
-  description,
-  timeStart,
-  coverImg,
-  timeEnd,
-  date,
-  teacherImg,
-  teacherName,
-}) => {
+const ClassCard: React.FC<ClassModel> = (props) => {
+  const {
+    name,
+    description,
+    time_from,
+    bg_image,
+    time_to,
+    date_from,
+    teacher,
+  } = props;
   const history = useHistory();
 
   return (
     <IonCard
       className="class"
       onClick={() => {
-        history.push("/class");
+        history.push({
+          pathname: "/class",
+          state: props,
+        });
       }}
     >
       <IonCardHeader
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0)),url("${
-            coverImg || "/class/default.svg"
+            bg_image || "/class/default.svg"
           }")`,
         }}
       >
-        <IonCardTitle>{title}</IonCardTitle>
+        <IonCardTitle>{name}</IonCardTitle>
         <IonCardSubtitle>{description}</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
         <div className="class-details">
           <IonText>
-            {timeStart} - {timeEnd}
+            {time_from} - {time_to}
           </IonText>
           <br />
-          <IonText>{date}</IonText>
+          <IonText>{date_from}</IonText>
         </div>
         <IonAvatar>
-          {teacherImg ? (
-            <img src={`${teacherImg}`} />
+          {teacher?.profile_picture ? (
+            <img src={`${teacher?.profile_picture}`} />
           ) : (
             <IonIcon
               src={personCircleOutline}
@@ -72,7 +64,7 @@ const ClassCard: React.FC<ClassDetails> = ({
           )}
         </IonAvatar>
         <div className="class-teacher">
-          <IonText>{teacherName}</IonText>
+          <IonText>{teacher?.first_name + " " + teacher?.last_name}</IonText>
         </div>
       </IonCardContent>
     </IonCard>

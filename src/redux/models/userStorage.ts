@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { action, thunk } from "easy-peasy";
 import axios from "../../axios";
-import { AuthData, UserInfo, UserStorageModel } from "../model";
+import { UserInfo, UserStorageModel } from "../model";
 
 const userStorage: UserStorageModel = {
   isLoggedIn: false,
@@ -15,8 +15,7 @@ const userStorage: UserStorageModel = {
         `login?username=${username}&password=${password}`
       );
       const result = await actions.verifyToken({
-        type: auth.data.token_type,
-        token: auth.data.access_token,
+        authData: { type: auth.data.token_type, token: auth.data.access_token },
       });
       if (result && success) {
         success();
@@ -28,21 +27,28 @@ const userStorage: UserStorageModel = {
       }
     }
   }),
-  verifyToken: thunk(async (actions, token: AuthData) => {
-    const userDetails = await axios.get("user?include=preferences", {
-      headers: {
-        Authorization: `${token.type} ${token.token}`,
-      },
-    });
-    if (userDetails.status === 200) {
-      actions.setInfo(userDetails.data);
-      actions.setAccessToken(token.token);
-      return true;
+  verifyToken: thunk(async (actions, { authData, success, fail }) => {
+    try {
+      const userDetails = await axios.get("user?include=preferences", {
+        headers: {
+          Authorization: `${authData.type} ${authData.token}`,
+        },
+      });
+      if (userDetails.status === 200) {
+        actions.setInfo(userDetails.data);
+        actions.setAccessToken(authData);
+        if (success) success();
+        return true;
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      if (fail) fail(err);
     }
     return false;
   }),
-  setAccessToken: action((states, token) => {
+  setAccessToken: action((states, { token, type }) => {
     states.accessToken = token;
+    states.tokenType = type;
   }),
   setInfo: action((states, info: UserInfo) => {
     states.info = info;
