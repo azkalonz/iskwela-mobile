@@ -17,8 +17,9 @@ import { useHistory } from "react-router";
 import ClassCard from "../components/ClassCard";
 import { hasHeader } from "../components/Header";
 import useIsLoggedIn from "../hooks/useIsLoggedIn";
+import useObjectFilter from "../hooks/useObjectFilter";
 import useSkeletonLoading from "../hooks/useSkeletonLoading";
-import { ClassesModel } from "../redux/model";
+import { ClassesModel, ClassModel } from "../redux/model";
 import { useStoreActions, useStoreState } from "../redux/store";
 import "./Home.scss";
 
@@ -34,6 +35,10 @@ const Home: React.FC = () => {
   );
   const [classes, setClasses] = useState<ClassesModel | null>();
   const skeletonRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  const [filteredClasses, setFilter, allClasses] = useObjectFilter<
+    ClassModel[]
+  >(classes?.classes);
+
   const skeletonize = useSkeletonLoading(
     skeletonRef,
     [
@@ -102,7 +107,22 @@ const Home: React.FC = () => {
         </IonRefresher>
         <div className="classes">
           <IonItem className="iskwela-theme">
-            <IonInput clearOnEdit={false} placeholder="Search">
+            <IonInput
+              clearOnEdit={false}
+              placeholder="Search"
+              onInput={(e) => {
+                setFilter(
+                  allClasses.filter(
+                    (q) =>
+                      JSON.stringify(q)
+                        .toLowerCase()
+                        .indexOf(
+                          e.currentTarget.value?.toString().toLowerCase() + ""
+                        ) >= 0
+                  )
+                );
+              }}
+            >
               <IonButton
                 slot="end"
                 onClick={() => {
@@ -133,8 +153,9 @@ const Home: React.FC = () => {
               ))}
             </div>
           )}
-          {classes &&
-            classes.classes.map((c) => <ClassCard key={c.id} {...c} />)}
+          {filteredClasses.map((c) => (
+            <ClassCard key={c.id} {...c} />
+          ))}
         </div>
       </IonContent>
     </IonPage>
