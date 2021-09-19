@@ -1,0 +1,125 @@
+.post-box {
+  margin: 0 auto;
+  box-shadow: 0 2px 30px #f1e6ff;
+  border: 1px solid #e9e4ef;
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+
+.avatar-txtbox-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 14px 14px 0 14px;
+}
+
+.start-discussion-box {
+  border: 1px solid #d5b8ff;
+  background: #eee6ff;
+  width: calc(100% - 60px);
+  margin-left: 12px;
+  height: 60px;
+  border-radius: 5px;
+  line-height: 60px;
+  padding-left: 15px;
+  font-size: 15px;
+  font-family: "work sans";
+  color: #a29cad;
+}
+
+.post-btn-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 15px;
+  padding: 0 14px 14px 14px;
+}
+
+.post-btn {
+  width: 80px;
+  height: 35px;
+}
+
+.post-header-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 14px 10px 0 14px;
+}
+
+.name-time-section {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px);
+  margin-left: 12px;
+}
+
+.author {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ellipsis {
+  padding: 12px;
+}
+
+.post-content-section {
+  padding: 0 14px 14px 14px;
+}
+
+.content {
+  font-size: 16px;
+  color: #8f5fff;
+}
+
+.post-comment-counter-section {
+  padding: 14px;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  color: #8f5fff;
+}
+
+.post-comment-section {
+  padding: 14px;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.comment-content {
+  width: calc(100% - 60px);
+  background: #f9f5fe;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  color: #8f5fff;
+  border-radius: 6px;
+}
+
+.comment-author {
+  font-size: 16px;
+  font-weight: 700px !important;
+  margin-bottom: 5px;
+}
+
+.post-add-comment-section {
+  width: 100%;
+  padding: 7px 14px 14px 14px;
+  display: flex;
+}
+
+.comment-input {
+  width: calc(100% - 60px);
+  background: #eee6ff;
+  border: 1px solid #d5b8ff;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-left: 10px;
+}
