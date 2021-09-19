@@ -10,6 +10,8 @@ import { hasHeader } from "../components/Header";
 import { ClassModel } from "../redux/model";
 import { useStoreActions } from "../redux/store";
 
+import StartDiscussion from "../components/StartDiscussion";
+
 const Class: React.FC = () => {
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
   const { setCurrentClass } = useStoreActions((states) => states.classes);
@@ -27,7 +29,8 @@ const Class: React.FC = () => {
     <IonPage className={hasHeader()}>
       <IonContent>
         <br />
-        <IonText>Class Page</IonText>
+        <IonText>Class Page Hello World</IonText>
+        <StartDiscussion/>
       </IonContent>
     </IonPage>
   );
