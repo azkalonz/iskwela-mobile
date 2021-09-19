@@ -33,6 +33,7 @@ const Class: React.FC = () => {
         <CreatePost />        
         <Post />
         <Post />
+        <Post />
         
       </IonContent>
     </IonPage>
