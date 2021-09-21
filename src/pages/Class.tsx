@@ -10,7 +10,7 @@ import { hasHeader } from "../components/Header";
 import { ClassModel } from "../redux/model";
 import { useStoreActions } from "../redux/store";
 
-import {CreatePost, Post} from "../components/Posts";
+import Posts from "../components/Posts";
 
 const Class: React.FC = () => {
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
@@ -30,10 +30,7 @@ const Class: React.FC = () => {
       <IonContent>
         <br />
 
-        <CreatePost />        
-        <Post />
-        <Post />
-        <Post />
+        <Posts />
         
       </IonContent>
     </IonPage>
