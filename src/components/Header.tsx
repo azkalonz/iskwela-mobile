@@ -37,7 +37,7 @@ const Header: React.FC = () => {
   );
   const handleLogout = () => {
     logout();
-    history.replace("/login");
+    window.open("/login", "_SELF");
   };
   const showHeaderActions = useCallback(async () => {
     const fullName = info?.first_name + " " + info?.last_name;
