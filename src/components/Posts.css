@@ -123,3 +123,16 @@
   padding-left: 10px;
   margin-left: 10px;
 }
+
+.editorModal {
+  border-radius: 10px;
+}
+
+.editor-btn-row {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 14px 20px 14px;
+}
