@@ -8,10 +8,10 @@ import {
   useIonModal,
 } from "@ionic/react";
 import { personCircleOutline, ellipsisVertical } from "ionicons/icons";
-import React, { useState } from "react";
-import { Box } from "@material-ui/core";
+import React, { useRef, useState } from "react";
+import { createTheme } from "@mui/material/styles";
 import MUIRichTextEditor from "mui-rte";
-
+import { MuiThemeProvider } from "@material-ui/core";
 import { PostModel, CommentModel } from "../redux/model";
 
 import "./Posts.css";
@@ -91,7 +91,13 @@ const CreatePost: React.FC = () => {
         </div>
       </div>
       <div className="post-btn-section">
-        <IonButton className="post-btn" color="secondary">
+        <IonButton
+          className="post-btn"
+          color="secondary"
+          onClick={() => {
+            present({ cssClass: "editorModal" });
+          }}
+        >
           Post
         </IonButton>
       </div>
@@ -99,15 +105,56 @@ const CreatePost: React.FC = () => {
   );
 };
 
+const muiTheme = createTheme();
+Object.assign(muiTheme, {
+  overrides: {
+    MUIRichTextEditor: {
+      root: {
+        marginTop: 15,
+        width: "100%",
+        paddingLeft: 10,
+      },
+      editor: {
+        padding: 15,
+        fontFamily: "work sans",
+      },
+    },
+  },
+});
+
 const Editor: React.FC<{ onDismiss: () => void }> = ({ onDismiss }) => {
   return (
     <div className="modal">
-      <MUIRichTextEditor label="Start a discussion" />
+      <MuiThemeProvider theme={muiTheme}>
+        <MUIRichTextEditor
+          decorators={[
+            {
+              component: MyHashTagDecorator,
+              regex: /\#[\w]+/g,
+            },
+          ]}
+        />
+      </MuiThemeProvider>
       <div className="editor-btn-row">
         <IonButton onClick={onDismiss}>Cancel</IonButton>
         <IonButton>Post</IonButton>
       </div>
     </div>
+  );
+};
+
+const MyHashTagDecorator: React.FC = (props) => {
+  const hashtagUrl = "http://myurl/";
+  return (
+    <a
+      href={hashtagUrl}
+      style={{
+        color: "green",
+        textDecoration: "none",
+      }}
+    >
+      {props.children}
+    </a>
   );
 };
 

@@ -125,9 +125,13 @@
 }
 
 .editorModal {
-  border-radius: 10px;
 }
 
+.modal {
+  background: white;
+  height: 100%;
+  font-family: "work sans";
+}
 .editor-btn-row {
   position: absolute;
   bottom: 0;
