@@ -66,7 +66,13 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {location.pathname.indexOf("class") < 0 ? <MainMenu /> : <ClassMenu />}
+      {location.pathname.indexOf("class") < 0 ? (
+        location.pathname.indexOf("login") < 0 ? (
+          <MainMenu />
+        ) : null
+      ) : (
+        <ClassMenu />
+      )}
       <IonHeader id="main-header" ref={headerRef}>
         <IonToolbar>
           <IonButtons slot="start">
