@@ -111,6 +111,7 @@ ion-refresher {
   bottom: 0;
   top: 0;
   background: #f0e7ff;
+  z-index: 3;
   &::after {
     position: absolute;
     top: 0;

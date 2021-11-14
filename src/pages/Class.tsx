@@ -1,20 +1,23 @@
 import {
   IonContent,
   IonPage,
-  IonText,
   useIonLoading,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useCallback, useState } from "react";
-import { useLocation } from "react-router";
+import { RouteComponentProps, useLocation } from "react-router";
 import { hasHeader } from "../components/Header";
+import Posts from "../components/Posts/Posts";
 import { ClassModel } from "../redux/model";
 import { useStoreActions } from "../redux/store";
 
-import Posts from "../components/Posts/Posts";
-import axios from "../axios";
+interface MatchParams {
+  class_id: string;
+}
 
-const Class: React.FC = () => {
+export interface ClassRouteProps extends RouteComponentProps<MatchParams> {}
+
+const Class: React.FC<ClassRouteProps> = (props: ClassRouteProps) => {
   const [presentLoading, dismissLoading] = useIonLoading();
   const { setHeaderTitle } = useStoreActions((states) => states.nonPersistent);
   const { setCurrentClass, getClassDetails } = useStoreActions(
@@ -51,7 +54,7 @@ const Class: React.FC = () => {
     <IonPage className={hasHeader()}>
       <IonContent>
         <br />
-        <Posts />
+        <Posts {...props} />
       </IonContent>
     </IonPage>
   );

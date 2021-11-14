@@ -26,6 +26,7 @@ export default function (
           e.prepend(loader);
           if (getComputedStyle(ee).position !== "absolute") {
             ee.style.position = "relative";
+            ee.style.display = "block";
             ee.style.overflow = "hidden!important";
             ee.style.background = "none";
           }

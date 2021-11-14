@@ -2,7 +2,7 @@ import { IonAvatar, IonIcon, IonText } from "@ionic/react";
 import { personCircleOutline } from "ionicons/icons";
 import { CommentModel } from "./PostInterfaces";
 
-export const Comment: React.FC<CommentModel> = (props) => {
+export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
   return (
     <div className="comment">
       <IonAvatar className="avatar" style={{ height: 45, width: 45 }}>
@@ -12,8 +12,10 @@ export const Comment: React.FC<CommentModel> = (props) => {
         />
       </IonAvatar>
       <div className="comment-content">
-        <IonText className="comment-author">{props.author}</IonText>
-        <IonText>{props.content}</IonText>
+        <IonText className="comment-author">
+          {props.added_by.first_name}
+        </IonText>
+        <IonText>{props.body}</IonText>
       </div>
     </div>
   );
