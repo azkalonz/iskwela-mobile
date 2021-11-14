@@ -62,6 +62,21 @@ export interface StoreModel {
   classes: ClassesModel;
 }
 
+export type ClassTeacher = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  profile_picture: string;
+};
+
+export type ClassSchedule = {
+  id: number;
+  from: string;
+  to: string;
+  teacher: ClassTeacher;
+  status: "PENDING" | "ONGOING" | "DONE" | "CANCELED";
+};
+
 export type ClassModel = {
   id?: number;
   name: string;
@@ -79,12 +94,7 @@ export type ClassModel = {
     id: number;
     name: string;
   };
-  teacher?: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    profile_picture: string;
-  };
+  teacher?: ClassTeacher;
   section?: {
     id: number;
     name: string;
@@ -94,6 +104,7 @@ export type ClassModel = {
     id: number;
     name: string;
   };
+  schedules?: ClassSchedule[];
 };
 
 interface ClassesCallback {
@@ -103,6 +114,14 @@ interface ClassesCallback {
 export interface ClassesModel extends UserInfo {
   classes: ClassModel[] | [];
   currentClass: ClassModel | null;
+  getClassDetails: Thunk<
+    ClassModel,
+    {
+      id: string;
+      success?: (classDetails: ClassModel) => void;
+      fail?: AxiosErrorCallback;
+    }
+  >;
   getClasses: Thunk<
     ClassesModel,
     {

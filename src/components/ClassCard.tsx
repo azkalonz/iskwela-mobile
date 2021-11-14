@@ -15,6 +15,7 @@ import { ClassModel } from "../redux/model";
 
 const ClassCard: React.FC<ClassModel> = (props) => {
   const {
+    id,
     name,
     description,
     time_from,
@@ -30,7 +31,7 @@ const ClassCard: React.FC<ClassModel> = (props) => {
       className="class"
       onClick={() => {
         history.push({
-          pathname: "/class",
+          pathname: "/class/" + id,
           state: props,
         });
       }}

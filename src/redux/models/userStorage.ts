@@ -1,6 +1,5 @@
-import { AxiosError } from "axios";
 import { action, thunk } from "easy-peasy";
-import axios from "../../axios";
+import iskwelaApi from "../../utils/iskwelaApi";
 import { UserInfo, UserStorageModel } from "../model";
 
 const userStorage: UserStorageModel = {
@@ -10,41 +9,47 @@ const userStorage: UserStorageModel = {
     states.accessToken = "";
   }),
   login: thunk(async (actions, { username, password, success, fail }) => {
-    try {
-      const auth = await axios.post(
-        `login?username=${username}&password=${password}`
-      );
-      const result = await actions.verifyToken({
-        authData: { type: auth.data.token_type, token: auth.data.access_token },
-      });
-      if (result && success) {
-        success();
-      }
-    } catch (err) {
-      const error = err as AxiosError;
-      if (error.response && fail) {
-        fail(error);
-      }
-    }
+    iskwelaApi.post({
+      endpoint: `login?username=${username}&password=${password}`,
+      after: async (data) => {
+        const { token_type, access_token } = data;
+        const isVerified = await actions.verifyToken({
+          authData: {
+            type: token_type,
+            token: access_token,
+          },
+        });
+        if (isVerified && success) {
+          success();
+        }
+      },
+      fail,
+    });
   }),
   verifyToken: thunk(async (actions, { authData, success, fail }) => {
-    try {
-      const userDetails = await axios.get("user?include=preferences", {
-        headers: {
-          Authorization: `${authData.type} ${authData.token}`,
-        },
-      });
-      if (userDetails.status === 200) {
-        actions.setInfo(userDetails.data);
+    let isVerified = false;
+    await iskwelaApi.get({
+      endpoint: "user?include=preferences",
+      after: (userDetails) => {
+        actions.setInfo(userDetails);
         actions.setAccessToken(authData);
         if (success) success();
         return true;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      if (fail) fail(err);
-    }
-    return false;
+      },
+      fail: (error) => {
+        if (fail) fail(error);
+        actions.logout();
+      },
+      success: () => {
+        isVerified = true;
+      },
+      requestConfig: {
+        headers: {
+          Authorization: `${authData.type} ${authData.token}`,
+        },
+      },
+    });
+    return isVerified;
   }),
   setAccessToken: action((states, { token, type }) => {
     states.accessToken = token;
