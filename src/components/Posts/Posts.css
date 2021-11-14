@@ -1,3 +1,7 @@
+.sc-ion-textarea-md-h {
+  margin-top: 4px;
+}
+
 .post-box {
   margin: 0 auto;
   box-shadow: 0 2px 30px #f1e6ff;
@@ -61,6 +65,12 @@
 .author {
   font-size: 18px;
   font-weight: 600;
+  color: #060606;
+  letter-spacing: 0.105px;
+}
+
+.author + * {
+  color: #171717;
 }
 
 .ellipsis {
@@ -73,14 +83,14 @@
 
 .content {
   font-size: 16px;
-  color: #8f5fff;
+  color: #171717;
 }
 
 .post-comment-counter-section {
   padding: 14px;
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
-  color: #8f5fff;
+  color: #000000;
 }
 
 .post-comment-section {
@@ -104,9 +114,18 @@
 }
 
 .comment-author {
-  font-size: 16px;
-  font-weight: 700px !important;
+  font-size: 14px;
   margin-bottom: 5px;
+  color: #000000;
+  font-weight: 600;
+  opacity: 0.8;
+  letter-spacing: 0.19px;
+}
+
+.comment-author + * {
+  color: #000000;
+  font-size: 16px;
+  letter-spacing: 0.22px;
 }
 
 .post-add-comment-section {

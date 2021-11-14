@@ -1,0 +1,33 @@
+ae69dc4: Merge branch 'discussion',Mark Joseph Judaya,aeartixenter@gmail.com,19/09/2021,20:27:48
+f4a13d3: chore: added prettier config file,Mark Joseph Judaya,aeartixenter@gmail.com,19/09/2021,20:26:13
+bd136b0: Merge branch 'discussion' of https://github.com/azkalonz/iskwela-mobile into build,Mark Joseph Judaya,aeartixenter@gmail.com,19/09/2021,20:17:22
+46d1840: added class list filter & useObjectFilter hook,Mark Joseph Judaya,aeartixenter@gmail.com,9/9/2021,19:24:55
+2954ce3: fix for fragmented router,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,23:06:15
+0bf8296: latest build,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,23:05:26
+146af11: Merge branch 'main' of https://github.com/azkalonz/iskwela-mobile into build,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,22:05:20
+1755111: class page redux integration,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,22:04:53
+3313956: add scroll to refresh classes,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,21:10:21
+c34eace: latest build,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,15:33:59
+7d88dd7: component hook: useSkeletonLoading,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,15:31:59
+3c7cd8f: classes api integration,Mark Joseph Judaya,aeartixenter@gmail.com,7/9/2021,14:41:49
+7da8b14: prod build,Mark Joseph Judaya,aeartixenter@gmail.com,6/9/2021,18:38:40
+93e1ee4: added useIsLoggedIn hook,Mark Joseph Judaya,aeartixenter@gmail.com,6/9/2021,18:37:52
+07839e2: unignore ./build,Mark Joseph Judaya,aeartixenter@gmail.com,6/9/2021,18:14:50
+7f48619: login api integration,Mark Joseph Judaya,aeartixenter@gmail.com,6/9/2021,17:36:13
+8a7b628: add redux user storage,Mark Joseph Judaya,aeartixenter@gmail.com,3/9/2021,16:04:03
+e6c701e: fix for header title bug,Mark Joseph Judaya,aeartixenter@gmail.com,3/9/2021,15:52:12
+492aa5f: added redux (easy-peasy implementation),Mark Joseph Judaya,aeartixenter@gmail.com,3/9/2021,15:48:20
+212a9b5: initial ClassMenu,Mark Joseph Judaya,aeartixenter@gmail.com,2/9/2021,20:38:22
+f8ba142: added class page,Mark Joseph Judaya,aeartixenter@gmail.com,2/9/2021,0:42:52
+7bd8576: iskwela drawer,Mark Joseph Judaya,aeartixenter@gmail.com,1/9/2021,20:28:03
+084bcec: added ClassCard component,Mark Joseph Judaya,aeartixenter@gmail.com,30/08/2021,15:16:48
+e3e5461: initial dashboard page,Mark Joseph Judaya,aeartixenter@gmail.com,29/08/2021,0:21:55
+9ba07da: overflow issue,Mark Joseph Judaya,aeartixenter@gmail.com,27/08/2021,19:01:01
+4b8ec24: login page,Mark Joseph Judaya,aeartixenter@gmail.com,27/08/2021,18:39:53
+aeb507a: login page,Mark Joseph Judaya,aeartixenter@gmail.com,26/08/2021,19:11:55
+32754a4: added icon & splashscreen,Mark Joseph Judaya,aeartixenter@gmail.com,25/08/2021,21:42:11
+bdc29de: readme update,Mark Joseph Judaya,aeartixenter@gmail.com,25/08/2021,18:59:38
+4ae23df: Merge branch 'main' of https://github.com/azkalonz/iskwela-mobile,Mark Joseph Judaya,aeartixenter@gmail.com,25/08/2021,18:58:33
+317d421: ignore android folder,Mark Joseph Judaya,aeartixenter@gmail.com,25/08/2021,18:58:21
+b66effa: Create README.md,Mark Joseph Judaya,43038124+azkalonz@users.noreply.github.com,25/08/2021,17:13:48
+eaf3264: initial commit,Mark Joseph Judaya,aeartixenter@gmail.com,25/08/2021,17:10:47

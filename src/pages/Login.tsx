@@ -44,8 +44,8 @@ const Login: React.FC = () => {
           } else {
             present("Something went wrong. Please try again.");
           }
-          dismissLoading();
         }
+        dismissLoading();
       },
     });
   };

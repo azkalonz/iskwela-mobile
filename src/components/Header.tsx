@@ -21,6 +21,7 @@ import { useStoreActions, useStoreState } from "../redux/store";
 import ClassMenu from "./ClassMenu";
 import MainMenu from "./MainMenu";
 
+// fix ion-page margin for ios
 export function hasHeader(): string {
   return "has-header " + getConfig()?.get("mode");
 }
