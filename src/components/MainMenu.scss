@@ -6,6 +6,9 @@ ion-toolbar {
 
 ion-menu {
   pointer-events: visible;
+  &::part(container) {
+    contain: none;
+  }
   ion-content {
     --padding-end: 0;
   }

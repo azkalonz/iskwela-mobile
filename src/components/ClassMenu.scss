@@ -1,7 +1,15 @@
+.card-menu {
+  background: rgb(117, 57, 255);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  width: 97%;
+  margin-bottom: 8px;
+}
+
 #class-menu {
-  --width: 320px;
+  --width: 340px;
   &.show-menu {
-    //background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7);
   }
   &::part(container) {
     box-shadow: none;
@@ -12,8 +20,7 @@
     --background: transparent;
   }
   ion-header {
-    background: rgb(117, 57, 255);
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    @extend .card-menu;
   }
   ion-list {
     --ion-item-background: transparent;
@@ -36,6 +43,9 @@
     ion-img.class-cover {
       max-height: 220px;
       overflow: hidden;
+      &::part(image) {
+        width: 101%;
+      }
     }
   }
   .class-schedule {
@@ -47,5 +57,40 @@
       font-weight: 500;
       white-space: nowrap;
     }
+  }
+}
+
+.class-options {
+  --padding-start: 0px;
+  & > div {
+    padding: 15px;
+    @extend .card-menu;
+  }
+  .class-teacher {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    ion-avatar ion-icon {
+      border-radius: 50%;
+    }
+    height: 138px;
+    .teacher-name {
+      color: #e7dffa;
+      text-transform: capitalize;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .class-subject {
+      color: #e7dffa;
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+  .class-menu {
+    position: relative;
+    z-index: 1;
+    height: 500px;
   }
 }

@@ -20,6 +20,7 @@ import { useHistory, useLocation } from "react-router";
 import { useStoreActions, useStoreState } from "../redux/store";
 import ClassMenu from "./ClassMenu";
 import MainMenu from "./MainMenu";
+import UserAvatar from "./UserAvatar";
 
 // fix ion-page margin for ios
 export function hasHeader(): string {
@@ -28,7 +29,6 @@ export function hasHeader(): string {
 
 const Header: React.FC = () => {
   const [present] = useIonActionSheet();
-  const history = useHistory();
   const location = useLocation();
   const { headerTitle } = useStoreState((states) => states.nonPersistent);
   const { info } = useStoreState((states) => states.userStorage);
@@ -80,16 +80,7 @@ const Header: React.FC = () => {
           </IonButtons>
           <IonTitle>{headerTitle}</IonTitle>
           <IonButtons slot="end">
-            <IonAvatar slot="end" style={{ height: 30, width: 30 }}>
-              {info?.preferences?.profile_picture ? (
-                <img src={info?.preferences?.profile_picture} alt="Lisa" />
-              ) : (
-                <IonIcon
-                  src={personCircleOutline}
-                  style={{ width: "100%", height: "100%", background: "#fff" }}
-                />
-              )}
-            </IonAvatar>
+            <UserAvatar slot="end" />
             <IonButton onClick={showHeaderActions}>
               <IonIcon slot="end" icon={caretDownOutline} />
             </IonButton>

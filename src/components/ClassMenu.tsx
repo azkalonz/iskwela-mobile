@@ -2,23 +2,20 @@ import {
   IonButton,
   IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
-  IonIcon,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
   IonMenu,
   IonRow,
   IonText,
   IonToolbar,
 } from "@ionic/react";
-import { closeOutline } from "ionicons/icons";
 import React, { useRef } from "react";
-import "./MainMenu.scss";
-import "./ClassMenu.scss";
 import { useHistory } from "react-router";
 import { useStoreState } from "../redux/store";
+import "./ClassMenu.scss";
+import "./MainMenu.scss";
+import UserAvatar from "./UserAvatar";
 
 const ClassMenu: React.FC = () => {
   const history = useHistory();
@@ -79,7 +76,32 @@ const ClassMenu: React.FC = () => {
           </IonCol>
         </IonRow>
       </IonHeader>
-      <IonContent></IonContent>
+      <IonContent className="class-options">
+        <div className="class-teacher">
+          <IonGrid>
+            <IonRow>
+              <IonCol size="100%">
+                <UserAvatar
+                  pic={currentClass?.teacher?.profile_picture}
+                  size={44}
+                />
+              </IonCol>
+              <IonCol>
+                <IonText className="teacher-name">
+                  {currentClass?.teacher?.first_name +
+                    " " +
+                    currentClass?.teacher?.last_name}
+                </IonText>
+                <br />
+                <IonText className="class-subject">
+                  {currentClass?.subject?.name} Teacher
+                </IonText>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </div>
+        <div className="class-menu"></div>
+      </IonContent>
     </IonMenu>
   );
 };
