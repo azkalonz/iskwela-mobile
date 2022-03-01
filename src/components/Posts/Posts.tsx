@@ -1,4 +1,10 @@
-import { useIonViewWillEnter } from "@ionic/react";
+import { RefresherEventDetail } from "@ionic/core";
+import {
+  IonRefresher,
+  IonRefresherContent,
+  useIonAlert,
+  useIonViewWillEnter,
+} from "@ionic/react";
 import React, { useRef, useState } from "react";
 import useSkeletonLoading from "../../hooks/useSkeletonLoading";
 import { ClassRouteProps } from "../../pages/Class";
@@ -9,6 +15,7 @@ import { PostsModel } from "./PostInterfaces";
 import "./Posts.css";
 
 const Posts: React.FC<ClassRouteProps> = (props: ClassRouteProps) => {
+  const [present] = useIonAlert();
   const [posts, setPosts] = useState<PostsModel>();
   const skeletonRef = useRef<HTMLDivElement>(null);
   const skeletonize = useSkeletonLoading(skeletonRef, [
@@ -18,6 +25,19 @@ const Posts: React.FC<ClassRouteProps> = (props: ClassRouteProps) => {
     ".comment-input",
   ]);
   const { class_id } = props.match.params;
+
+  const onPostsRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    iskwelaApi.get({
+      endpoint: `post/class/${class_id}?include=comments&page=1`,
+      success: (posts) => {
+        setPosts(posts);
+        event.detail.complete();
+      },
+      fail: (error) => {
+        present(`Cannot fetch classes [${error.response?.status}]`);
+      },
+    });
+  };
 
   useIonViewWillEnter(() => {
     iskwelaApi.get({
@@ -30,7 +50,17 @@ const Posts: React.FC<ClassRouteProps> = (props: ClassRouteProps) => {
 
   return (
     <>
-      <CreatePost />
+      <IonRefresher onIonRefresh={onPostsRefresh} slot="fixed">
+        <IonRefresherContent></IonRefresherContent>
+      </IonRefresher>
+      <CreatePost
+        props={{
+          classProps: props,
+          onRefreshPosts: () => {
+            // Refresh posts
+          },
+        }}
+      />
       {!posts && (
         <div ref={skeletonRef}>
           <Post

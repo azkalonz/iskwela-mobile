@@ -17,7 +17,7 @@ type ApiRequestProps = {
   after?: ApiRequestAfterCallback;
   fail?: ApiRequestFailCallback;
   success?: ApiRequestSuccessCallback;
-  requestConfig?: AxiosRequestConfig;
+  requestConfig?: Object;
 };
 const request = async <T>(params: ApiRequestProps, type: "get" | "post") => {
   const {
@@ -38,10 +38,11 @@ const request = async <T>(params: ApiRequestProps, type: "get" | "post") => {
           },
         }
       : {};
-    const request = await axios[type](endpoint, {
-      ...axiosReqConfig,
-      ...requestConfig,
-    });
+    const request = await axios[type](
+      endpoint,
+      { ...requestConfig, ...axiosReqConfig },
+      axiosReqConfig
+    );
     if (request.status === 200) {
       const c = request.data as T;
       after(c);

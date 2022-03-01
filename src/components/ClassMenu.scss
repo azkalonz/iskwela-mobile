@@ -4,6 +4,7 @@
   border-radius: 4px;
   width: 97%;
   margin-bottom: 8px;
+  scroll-snap-align: start;
 }
 
 #class-menu {
@@ -62,6 +63,9 @@
 
 .class-options {
   --padding-start: 0px;
+  &::part(scroll) {
+    scroll-snap-type: y mandatory;
+  }
   & > div {
     padding: 15px;
     @extend .card-menu;

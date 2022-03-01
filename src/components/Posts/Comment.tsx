@@ -1,5 +1,6 @@
 import { IonAvatar, IonIcon, IonText } from "@ionic/react";
 import { personCircleOutline } from "ionicons/icons";
+import MUIRichTextEditor from "mui-rte";
 import { CommentModel } from "./PostInterfaces";
 
 export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
@@ -15,7 +16,7 @@ export const Comment: React.FC<CommentModel> = (props: CommentModel) => {
         <IonText className="comment-author">
           {props.added_by.first_name}
         </IonText>
-        <IonText>{props.body}</IonText>
+        <MUIRichTextEditor defaultValue={props.body} controls={[]} />
       </div>
     </div>
   );

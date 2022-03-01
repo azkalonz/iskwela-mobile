@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  padding: 14px 14px 0 14px;
+  padding: 14px;
 }
 
 .start-discussion-box {
@@ -148,7 +148,9 @@
 
 .modal {
   background: white;
+  color: #000000;
   height: 100%;
+  padding: 13px;
   font-family: "work sans";
 }
 .editor-btn-row {

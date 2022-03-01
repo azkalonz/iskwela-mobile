@@ -20,7 +20,7 @@ export default function UserAvatar(props: {
       {...(props.slot ? { slot: props.slot } : {})}
       style={{ height: props.size || 30, width: props.size || 30 }}
     >
-      {avatar}
+      {typeof avatar == "string" ? <img src={avatar} /> : avatar}
     </IonAvatar>
   );
 }
